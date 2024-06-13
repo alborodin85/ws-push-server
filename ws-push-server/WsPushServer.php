@@ -1,12 +1,15 @@
 <?php
 
-namespace ws-push-server;
+namespace It5\WsPushServer;
 
-class CommandServer
+class WsPushServer
 {
     private string $commandSocketAddress;
     private string $wsSocketAddress;
     private string $commandAuthToken;
+
+    private string $pingText;
+    private string $pongText;
 
     // Массив вида [wsToken => user_id, ... ]
     private array $usersByWsTokens = [];
@@ -17,11 +20,13 @@ class CommandServer
      * @param string $socketAddress Например, 'tcp://0.0.0.0:80'
      * @param string $commandAuthToken Токен аутентификации клиента для возможности выполнять команды
      */
-    public function __construct(string $socketAddress, string $commandAuthToken, string $wsSocketAddress)
+    public function __construct(string $socketAddress, string $commandAuthToken, string $wsSocketAddress, string $pingText, string $pongText)
     {
         $this->commandSocketAddress = $socketAddress;
         $this->commandAuthToken = $commandAuthToken;
         $this->wsSocketAddress = $wsSocketAddress;
+        $this->pingText = $pingText;
+        $this->pongText = $pongText;
     }
 
     public function run(): void
@@ -148,7 +153,7 @@ class CommandServer
 
                             $responseArr = [
                                 'token' => $wsToken,
-                                'ping_text' => \Config::$PING_TEXT,
+                                'ping_text' => $this->pingText,
                             ];
                             $responseStr = json_encode($responseArr);
 
@@ -219,11 +224,8 @@ class CommandServer
 
                     echo date('Y-m-d H:i:s') . " [$wsToken]: $message\n";
 
-                    if ($message == \Config::$PING_TEXT) {
-                        usleep(1);
-                        fwrite($connect, $this->encode('', 'ping'));
-                        usleep(1);
-                        fwrite($connect, $this->encode(\Config::$PONG_TEXT));
+                    if ($message == $this->pingText) {
+                        fwrite($connect, $this->encode($this->pongText));
                     }
                 }
             }

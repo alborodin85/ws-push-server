@@ -1,6 +1,6 @@
 <?php
 
-namespace ws-push-server;
+namespace It5\WsPushServer;
 
 class CurlClient
 {

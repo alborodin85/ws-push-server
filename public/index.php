@@ -1,19 +1,18 @@
 <?php
 
-use server\CurlClient;
+use It5\WsPushServer\CurlClient;
 
-require_once '../Config.php';
-require_once '../../vendor/autoload.php';
+require_once '../vendor/autoload.php';
 
-$wsServerUrl = 'https://tt2.it5.su/ws/';
+$wsServerUrl = getenv('WS_SERVER_CLIENT_URL');
 
-$url = 'tt2-ws-push-server-ssh/ws-command/getAuthToken';
+$url = getenv('WS_SERVER_COMMAND_URL') . '/getAuthToken';
 $query = http_build_query(['user_id' => 1]);
 $url .= '?' . $query;
 $method = 'GET';
 $parameters = '';
 
-$commandAuthToken = Config::$COMMAND_AUTH_TOKEN;
+$commandAuthToken = getenv('WS_SERVER_COMMAND_TOKEN');
 $headers = [
     "Authorization: Bearer $commandAuthToken"
 ];

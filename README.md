@@ -1,13 +1,12 @@
 TODO:
 
-- Выпилить композер
-- Убрать из https://packagist.org/
-- Убрать command-getAuthToken.php
-- Сделать Config.example.php
+- OK - Выпилить композер
+- OK - Убрать из https://packagist.org/
+- OK - Сделать .env.example
 - Вынести handshake($connect), encode($payload), decode($data) в отдельный файл
-- Вынести command-sendAll, command-sendMessage, Config, ws-push-server, public на верхний уровень
-- Убрать папку example
-- Из ws-push-server вынести адреса сокетов в Config.
+- ОК - Вынести command-sendAll, command-sendMessage, Config, ws-push-server, public на верхний уровень
+- ОК - Убрать папку example
+- OK - Из ws-push-server вынести адреса сокетов в .env.
 - Статью на Хабр
 
 

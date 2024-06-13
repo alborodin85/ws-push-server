@@ -1,18 +1,17 @@
 <?php
 
-use server\CurlClient;
+use It5\WsPushServer\CurlClient;
 
-require_once 'Config.php';
-require_once '../vendor/autoload.php';
+require_once 'vendor/autoload.php';
 
-$url = 'tt2-ws-push-server-ssh/ws-command/sendAll';
+$url = getenv('WS_SERVER_COMMAND_URL') . '/sendAll';
 $query = http_build_query(['user_id' => 1]);
 $url .= '?' . $query;
 
 $method = 'POST';
 $parameters = 'message=Сообщение всем юзерам';
 
-$commandAuthToken = Config::$COMMAND_AUTH_TOKEN;
+$commandAuthToken = getenv('WS_SERVER_COMMAND_TOKEN');
 $headers = [
     "Authorization: Bearer $commandAuthToken"
 ];

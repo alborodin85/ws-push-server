@@ -1,3 +1,5 @@
 Config.php
 dev_folder
 .idea
+vendor
+.env

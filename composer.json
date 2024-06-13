@@ -1,0 +1,10 @@
+{
+    "autoload": {
+        "psr-4": {
+            "It5\\WsPushServer\\": "ws-push-server/"
+        }
+    },
+    "require": {
+        "ext-curl": "*"
+    }
+}

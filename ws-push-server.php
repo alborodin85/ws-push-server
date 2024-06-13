@@ -1,9 +1,15 @@
 <?php
 
-require_once 'Config.php';
-require_once '../vendor/autoload.php';
+require_once 'vendor/autoload.php';
 
-use server\CommandServer;
+use It5\WsPushServer\WsPushServer;
 
-$server = new CommandServer('tcp://0.0.0.0:80', Config::$COMMAND_AUTH_TOKEN, 'tcp://0.0.0.0:8000');
+$commandSocketAddress = getenv('COMMAND_SOCKET_ADDRESS');
+$commandAuthToken = getenv('WS_SERVER_COMMAND_TOKEN');
+$wsSocketAddress = getenv('WS_SOCKET_ADDRESS');
+$pingText = getenv('PING_TEXT');
+$pongText = getenv('PONG_TEXT');
+
+$server = new WsPushServer($commandSocketAddress, $commandAuthToken, $wsSocketAddress, $pingText, $pongText);
+
 $server->run();
