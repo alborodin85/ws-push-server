@@ -220,9 +220,6 @@ class WsPushServer
                     } catch (\Throwable) {
                         //
                     }
-                    $wsToken = array_search($connect, $this->connectsByWsTokens);
-
-                    echo date('Y-m-d H:i:s') . " [$wsToken]: $message\n";
 
                     if ($message == $this->pingText) {
                         fwrite($connect, Utils::encode($this->pongText));
